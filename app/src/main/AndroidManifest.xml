@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.jianpeng.mooddiary">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -10,15 +12,45 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
-            android:label="@string/app_name">
+            android:name=".LoginActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleInstance">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginActivity"></activity>
+        <activity android:name=".MainActivity" />
+        <activity
+            android:name=".RegisterActivity"
+            android:label="@string/Register"
+            android:parentActivityName=".LoginActivity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".TravelDiaryActivity"
+            android:label="@string/Travel_Diary"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".MoodTagActivity"
+            android:label="@string/Mood_Tag"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".WorkRecordActivity"
+            android:label="@string/Work_Record"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".CardDiaryActivity"
+            android:label="@string/Card_Diary"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".SettingActivity"
+            android:label="@string/Setting"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme"/>
     </application>
 
 </manifest>

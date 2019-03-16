@@ -21,7 +21,8 @@
         app:layout_constraintHorizontal_bias="0.512"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.024" />
+        app:layout_constraintVertical_bias="0.024"
+        android:contentDescription="@string/desc"/>
 
     <ImageButton
         android:id="@+id/imageButton"
@@ -31,7 +32,8 @@
         android:layout_marginTop="128dp"
         android:background="@drawable/me_avatar"
         app:layout_constraintStart_toStartOf="@+id/iv_me_bg"
-        app:layout_constraintTop_toTopOf="@+id/iv_me_bg" />
+        app:layout_constraintTop_toTopOf="@+id/iv_me_bg"
+        android:contentDescription="@string/desc"/>
 
 
     <LinearLayout
@@ -41,8 +43,8 @@
         android:layout_marginStart="0dp"
         android:layout_marginTop="72dp"
         android:background="@color/white"
-        android:paddingLeft="10dp"
         android:paddingStart="10dp"
+        android:paddingEnd="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/iv_me_bg">
 
@@ -50,14 +52,15 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:padding="10dp"
-            android:src="@drawable/ic_personalinfo_black_24dp"/>
+            android:src="@drawable/ic_personalinfo_black_24dp"
+            android:contentDescription="@string/desc"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_gravity="center"
-            android:text="Personal Information"
+            android:text="@string/Personal_Information"
             android:textSize="21sp"
             />
     </LinearLayout>
@@ -70,8 +73,8 @@
         android:layout_marginStart="0dp"
         android:layout_marginTop="2dp"
         android:background="@color/white"
-        android:paddingLeft="10dp"
         android:paddingStart="10dp"
+        android:paddingEnd="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Lin1">
 
@@ -79,14 +82,15 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:padding="10dp"
-            android:src="@drawable/ic_collections_black_24dp"/>
+            android:src="@drawable/ic_collections_black_24dp"
+            android:contentDescription="@string/desc"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_gravity="center"
-            android:text="Collection"
+            android:text="@string/Collection"
             android:textSize="21sp"/>
 
     </LinearLayout>
@@ -99,8 +103,8 @@
         android:layout_marginStart="0dp"
         android:layout_marginTop="2dp"
         android:background="@color/white"
-        android:paddingLeft="10dp"
         android:paddingStart="10dp"
+        android:paddingEnd="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Lin2">
 
@@ -108,43 +112,47 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:padding="10dp"
-            android:src="@drawable/ic_sharetofriend_black_24dp"/>
+            android:src="@drawable/ic_sharetofriend_black_24dp"
+            android:contentDescription="@string/desc"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_gravity="center"
-            android:text="Share to friend"
+            android:text="@string/Share_to_friend"
             android:textSize="21sp"/>
 
     </LinearLayout>
 
 
     <LinearLayout
-        android:id="@+id/Lin4"
+        android:id="@+id/Lin_Setting"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginStart="0dp"
         android:layout_marginTop="32dp"
         android:background="@color/white"
-        android:paddingLeft="10dp"
         android:paddingStart="10dp"
+        android:paddingEnd="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Lin3">
 
         <ImageView
+            android:id="@+id/iv_Setting"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:padding="10dp"
-            android:src="@drawable/ic_settings_black_24dp"/>
+            android:src="@drawable/ic_settings_black_24dp"
+            android:contentDescription="@string/desc"/>
 
         <TextView
+            android:id="@+id/tv_Setting"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_gravity="center"
-            android:text="Setting"
+            android:text="@string/Setting"
             android:textSize="21sp"/>
 
     </LinearLayout>

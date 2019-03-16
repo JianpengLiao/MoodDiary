@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SettingActivity">
+
+
+    <LinearLayout
+        android:id="@+id/Lin1"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="68dp"
+        android:background="@color/white"
+        android:paddingEnd="10dp"
+        android:paddingStart="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/tv_Help_Feedback"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="10dp"
+            android:text="@string/Help_and_feedback"
+            android:textSize="21sp" />
+
+        <ImageView
+            android:id="@+id/iv_Help_Feedback"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="139dp"
+            android:contentDescription="@string/desc"
+            android:padding="10dp"
+            android:src="@drawable/ic__right" />
+
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:id="@+id/Lin2"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="120dp"
+        android:background="@color/white"
+        android:paddingEnd="10dp"
+        android:paddingStart="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/tv_About_MoodDiary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="10dp"
+            android:text="@string/About_MoodDiary"
+            android:textSize="21sp" />
+
+        <ImageView
+            android:id="@+id/iv_About_MoodDiary"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="150dp"
+            android:contentDescription="@string/desc"
+            android:padding="10dp"
+            android:src="@drawable/ic__right" />
+
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:id="@+id/Lin_Logout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="320dp"
+        android:background="@color/white"
+        android:paddingEnd="10dp"
+        android:paddingStart="10dp"
+        android:gravity="center"
+        android:onClick="onClickLogOut"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/tv_Logout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="10dp"
+            android:text="@string/LogOut"
+            android:textSize="21sp" />
+
+    </LinearLayout>
+
+
+</android.support.constraint.ConstraintLayout>

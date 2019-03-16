@@ -7,10 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -27,68 +25,71 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+public class RegisterActivity extends BaseCompatActivity {
 
-public class LoginActivity extends BaseCompatActivity {
-
-    private EditText inputUserID, inputPassword;
-    private Button loginButton;
+    private EditText inputUserID, inputPassword, inputCPassword;
+    private Button registerButton;
     private ProgressDialog progressDialog;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_register);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        inputUserID = findViewById(R.id.et_UserID);
-        inputPassword = findViewById(R.id.et_Password);
-        loginButton = findViewById(R.id.btn_Login);
+        inputUserID = findViewById(R.id.et_Register_UserID);
+        inputPassword = findViewById(R.id.et_Register_Password);
+        inputCPassword=findViewById(R.id.et_Register_CPassword);
+        registerButton = findViewById(R.id.btn_Register_Register);
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
     }
 
-    public void onClickLogin(View view) {
+
+    public void onClickLinktoLogin(View view) {
+        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+
+    public void onClickRegister(View view) {
         String userid = inputUserID.getText().toString().trim();
         String password = inputPassword.getText().toString().trim();
+        String cpassword=inputCPassword.getText().toString().trim();
 
         // Check for empty data in the form
-        if (!userid.isEmpty() && !password.isEmpty()) {
+        if (!userid.isEmpty() && !password.isEmpty() && !cpassword.isEmpty()) {
 
-            // Avoid multiple clicks on the button
-            loginButton.setClickable(false);
+            if(password.equals(cpassword)){
+                // Avoid multiple clicks on the button
+                registerButton.setClickable(false);
 
-            //Todo : ensure the user has Internet connection
+                // Display the progress Dialog
+                progressDialog.setMessage("Registering ...");
+                if (!progressDialog.isShowing())
+                    progressDialog.show();
 
-            // Display the progress Dialog
-            progressDialog.setMessage("Logging in ...");
-            if (!progressDialog.isShowing())
-                progressDialog.show();
-
-            //Todo: need to check weather the user has Internet before attempting checking the data
-            // Start fetching the data from the Internet
-            LoginRequest(userid,password);
-
+                RegisterRequest(userid,password);
+             }
+             else {
+                showToast("The Password and Confirm password are different, please check them!",Toast.LENGTH_LONG);
+                registerButton.setClickable(true);
+            }
         }
         else {
             // Prompt user to enter credentials
-            showToast("Enter your credentials.", Toast.LENGTH_LONG);
+            showToast("Enter your register information.", Toast.LENGTH_LONG);
         }
-
-    }
-
-
-    public void onClickLinktoRegister(View view) {
-        Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
-        startActivity(intent);
     }
 
 
 
-    public void LoginRequest(final String accountNumber, final String password) {
+    public void RegisterRequest(final String userid, final String password) {
         //请求地址
-        final String url = new Config().getLoginUrl();
-        final String tag = "Login";
+        final String url = new Config().getRegisterUrl();
+        final String tag = "Register";
 
         //取得请求队列
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
@@ -105,48 +106,49 @@ public class LoginActivity extends BaseCompatActivity {
                             JSONObject jsonObject = (JSONObject) new JSONObject(response).get("params");
                             String result = jsonObject.getString("Result");
                             if (result.equals("success")) {
-                                //做自己的登录成功操作，如页面跳转
-                                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                                startActivity(intent);
+                                //成功
                                 if(progressDialog.isShowing()) {
                                     progressDialog.dismiss();
                                 }
+                                showToast("Register success, please login your account!", Toast.LENGTH_LONG);
+                                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                                startActivity(intent);
                                 finish();
 
                             } else {
-                                //做自己的登录失败操作，如Toast提示
+                                //失败
                                 if(progressDialog.isShowing()) {
                                     progressDialog.dismiss();
                                 }
-                                showToast("Incorrect UserID or Password,please try again", Toast.LENGTH_LONG);
-                                loginButton.setClickable(true);
+                                showToast("Your account already exists, register failure", Toast.LENGTH_LONG);
+                                registerButton.setClickable(true);
                             }
                         } catch (JSONException e) {
                             //请求异常
                             if(progressDialog.isShowing()) {
                                 progressDialog.dismiss();
                             }
-                            showToast("Login failure, please try again later!", Toast.LENGTH_SHORT);
-                            loginButton.setClickable(true);
+                            showToast("Register failure, please try again later!", Toast.LENGTH_SHORT);
+                            registerButton.setClickable(true);
                             Log.e("TAG", e.getMessage(), e);
                         }
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                //响应错误操作
+                //响应错误
                 if(progressDialog.isShowing()) {
                     progressDialog.dismiss();
                 }
                 showToast("No network connection, please try again later!", Toast.LENGTH_LONG);
-                loginButton.setClickable(true);
+                registerButton.setClickable(true);
                 Log.e("TAG", error.getMessage(), error);
             }
         }) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
-                params.put("AccountNumber", accountNumber);  //给请求中填充要附带的数据
+                params.put("AccountNumber", userid);  //给请求中填充要附带的数据
                 params.put("Password", password);
                 return params;
             }
@@ -159,7 +161,6 @@ public class LoginActivity extends BaseCompatActivity {
         requestQueue.add(request);
     }
 
-
     //show Toast
     public void showToast(String str, int showTime)
     {
@@ -169,6 +170,4 @@ public class LoginActivity extends BaseCompatActivity {
         //v.setTextColor(getResources().getColor(R.color.messageTextClor));
         toast.show();
     }
-
-
 }
