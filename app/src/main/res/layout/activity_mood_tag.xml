@@ -4,6 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
     tools:context=".MoodTagActivity">
+
+    <ListView
+        android:id="@+id/listView_MoodTag"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@null" >
+    </ListView>
 
 </android.support.constraint.ConstraintLayout>

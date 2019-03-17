@@ -42,7 +42,7 @@ public class MainActivity extends BaseCompatActivity {
         fragments = new Fragment[]{home_fragment,calendar_fragment,news_fragment, me_fragment};
         lastfragment=0;
         getSupportFragmentManager().beginTransaction().replace(R.id.mainview,home_fragment).show(home_fragment).commit();
-        bottomNavigationView=(BottomNavigationView)findViewById(R.id.navigation);
+        bottomNavigationView=findViewById(R.id.navigation);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(changeFragment);
     }
@@ -101,7 +101,7 @@ public class MainActivity extends BaseCompatActivity {
     {
         FragmentTransaction transaction =getSupportFragmentManager().beginTransaction();
         transaction.hide(fragments[lastfragment]);//隐藏上个Fragment
-        if(fragments[index].isAdded()==false)
+        if(!fragments[index].isAdded())
         {
             transaction.add(R.id.mainview,fragments[index]);
         }
