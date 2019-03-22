@@ -106,6 +106,7 @@ public class LoginActivity extends BaseCompatActivity {
                             String result = jsonObject.getString("Result");
                             if (result.equals("success")) {
                                 //做自己的登录成功操作，如页面跳转
+                                User.setUsername(accountNumber);
                                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                 startActivity(intent);
                                 if(progressDialog.isShowing()) {

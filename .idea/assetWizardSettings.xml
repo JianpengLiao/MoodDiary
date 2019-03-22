@@ -3,6 +3,11 @@
   <component name="WizardSettings">
     <option name="children">
       <map>
+        <entry key="imageWizard">
+          <value>
+            <PersistentState />
+          </value>
+        </entry>
         <entry key="vectorWizard">
           <value>
             <PersistentState>
@@ -18,7 +23,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/C:/MyProgram/AndroidStudio/plugins/android/lib/android.jar!/images/material_design_icons/hardware/ic_keyboard_arrow_right_black_24dp.xml" />
+                                      <entry key="url" value="jar:file:/C:/MyProgram/AndroidStudio/plugins/android/lib/android.jar!/images/material_design_icons/content/ic_save_black_24dp.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -28,9 +33,11 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="color" value="707070" />
-                            <entry key="outputName" value="ic__right" />
+                            <entry key="height" value="60" />
+                            <entry key="outputName" value="ic_save_travel_diary" />
+                            <entry key="overrideSize" value="true" />
                             <entry key="sourceFile" value="C:\Users\28578" />
+                            <entry key="width" value="60" />
                           </map>
                         </option>
                       </PersistentState>

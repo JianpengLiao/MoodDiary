@@ -3,6 +3,7 @@
     package="com.example.jianpeng.mooddiary">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
@@ -31,26 +32,41 @@
             android:name=".TravelDiaryActivity"
             android:label="@string/Travel_Diary"
             android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/MyAppTheme" />
         <activity
             android:name=".MoodTagActivity"
             android:label="@string/Mood_Tag"
             android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/MyAppTheme" />
         <activity
             android:name=".WorkRecordActivity"
             android:label="@string/Work_Record"
             android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/MyAppTheme" />
         <activity
             android:name=".CardDiaryActivity"
             android:label="@string/Card_Diary"
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme" />
-        <activity android:name=".SettingActivity"
+        <activity
+            android:name=".SettingActivity"
             android:label="@string/Setting"
             android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme"/>
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".Mood_Tag_Add_Activity"
+            android:label="@string/Add_Mood_Tag"
+            android:parentActivityName=".MoodTagActivity"
+            android:theme="@style/MyAppTheme" />
+        <activity
+            android:name=".Work_Record_Add_Activity"
+            android:label="@string/Add_Work_Record"
+            android:parentActivityName=".MoodTagActivity"
+            android:theme="@style/MyAppTheme" />
+        <activity android:name=".Travel_Diary_Add_Activity"
+            android:label="@string/Add_Travel_Dairy"
+            android:parentActivityName=".MoodTagActivity"
+            android:theme="@style/MyAppTheme" />
     </application>
 
 </manifest>

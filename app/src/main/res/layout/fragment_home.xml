@@ -4,109 +4,154 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingTop="10dp"
+    android:paddingBottom="60dp"
     tools:context=".HomeFragment">
 
-    <ImageButton
-        android:id="@+id/imgBtn_CardDiary"
-        android:layout_width="350dp"
-        android:layout_height="120dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/home_fragment"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.488"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.03"
-        android:contentDescription="@string/desc"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
 
-    <ImageButton
-        android:id="@+id/imgBtn_TravelDiary"
-        android:layout_width="350dp"
-        android:layout_height="120dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/home_fragment"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgBtn_CardDiary"
-        android:contentDescription="@string/desc"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:gravity="center">
 
-    <ImageButton
-        android:id="@+id/imgBtn_MoodTag"
-        android:layout_width="350dp"
-        android:layout_height="120dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/home_fragment"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.485"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgBtn_TravelDiary"
-        android:contentDescription="@string/desc"/>
+            <ImageButton
+                android:id="@+id/imgBtn_CardDiary"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/home_fragment"
+                android:contentDescription="@string/desc"/>
 
-    <ImageButton
-        android:id="@+id/imgBtn_WorkRecord"
-        android:layout_width="350dp"
-        android:layout_height="120dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/home_fragment"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.485"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgBtn_MoodTag"
-        android:contentDescription="@string/desc"/>
+            <TextView
+                android:id="@+id/tv_CardDiary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="12dp"
+                android:text="@string/Card_Diary"
+                android:textSize="30sp"
+                android:textColor="@color/brack"
+                app:layout_constraintStart_toStartOf="@+id/imgBtn_CardDiary"
+                app:layout_constraintTop_toTopOf="@+id/imgBtn_CardDiary" />
 
-    <TextView
-        android:id="@+id/tv_CardDiary"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="12dp"
-        android:text="@string/Card_Diary"
-        android:textSize="30sp"
-        app:layout_constraintStart_toStartOf="@+id/imgBtn_CardDiary"
-        app:layout_constraintTop_toTopOf="@+id/imgBtn_CardDiary" />
+        </RelativeLayout>
 
-    <TextView
-        android:id="@+id/tv_TravelDiary"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="12dp"
-        android:text="@string/Travel_Diary"
-        android:textSize="30sp"
-        app:layout_constraintStart_toStartOf="@+id/imgBtn_TravelDiary"
-        app:layout_constraintTop_toTopOf="@+id/imgBtn_TravelDiary" />
 
-    <TextView
-        android:id="@+id/tv_MoodTag"
-        android:layout_width="140dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="12dp"
-        android:text="@string/Mood_Tag"
-        android:textSize="30sp"
-        app:layout_constraintStart_toStartOf="@+id/imgBtn_MoodTag"
-        app:layout_constraintTop_toTopOf="@+id/imgBtn_MoodTag" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:gravity="center">
 
-    <TextView
-        android:id="@+id/tv_WorkRecord"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="12dp"
-        android:text="@string/Work_Record"
-        android:textSize="30sp"
-        app:layout_constraintStart_toStartOf="@+id/imgBtn_WorkRecord"
-        app:layout_constraintTop_toTopOf="@+id/imgBtn_WorkRecord" />
+            <ImageButton
+                android:id="@+id/imgBtn_TravelDiary"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/home_traveldiary_bg"
+                android:contentDescription="@string/desc"/>
+
+            <TextView
+                android:id="@+id/tv_TravelDiary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="28dp"
+                android:layout_marginTop="12dp"
+                android:text="@string/Travel_Diary"
+                android:textSize="30sp"
+                android:textColor="@color/brack"
+                app:layout_constraintStart_toStartOf="@+id/imgBtn_TravelDiary"
+                app:layout_constraintTop_toTopOf="@+id/imgBtn_TravelDiary" />
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:gravity="center">
+
+            <ImageButton
+                android:id="@+id/imgBtn_MoodTag"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/home_moodtag_bg"
+                android:contentDescription="@string/desc"/>
+
+            <TextView
+                android:id="@+id/tv_MoodTag"
+                android:layout_width="140dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="28dp"
+                android:layout_marginTop="12dp"
+                android:text="@string/Mood_Tag"
+                android:textSize="30sp"
+                android:textColor="@color/brack"
+                app:layout_constraintStart_toStartOf="@+id/imgBtn_MoodTag"
+                app:layout_constraintTop_toTopOf="@+id/imgBtn_MoodTag" />
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:gravity="center">
+
+        <ImageButton
+            android:id="@+id/imgBtn_WorkRecord"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/home_workrecord_bg"
+            android:contentDescription="@string/desc"/>
+
+        <TextView
+            android:id="@+id/tv_WorkRecord"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="28dp"
+            android:layout_marginTop="12dp"
+            android:text="@string/Work_Record"
+            android:textSize="30sp"
+            android:textColor="@color/brack"
+            app:layout_constraintStart_toStartOf="@+id/imgBtn_WorkRecord"
+            app:layout_constraintTop_toTopOf="@+id/imgBtn_WorkRecord" />
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+
+
+
+
+
+
+
+
 
 
 

@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".Travel_Diary_Add_Activity">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/actionbar_height"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp"
+        android:background="@drawable/title_bg"
+        android:gravity="center_horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:onClick="onClickCancel"
+            android:src="@drawable/menu_back_bg" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:text="@string/Travel_Diary"
+            android:textColor="@color/white"
+            android:fontFamily="monospace"
+            android:textStyle="bold"
+            android:textSize="20sp" />
+
+        <ImageView
+            android:id="@+id/iv_AddTravelDiarySave"
+            android:layout_width="@dimen/actionbar_height"
+            android:layout_height="@dimen/actionbar_height"
+            android:padding="10dp"
+            android:onClick="onClickSave"
+            android:src="@drawable/ic_save_travel_diary"
+            android:layout_alignParentEnd="true" />
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="70dp"
+        android:layout_marginBottom="10dp"
+        android:padding="10dp"
+        android:background="@drawable/travel_diary_add_date_bg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ScrollView
+            android:id="@+id/sv_edit_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="60dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+            <TextView
+                android:id="@+id/text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Date:"
+                android:textSize="17sp" />
+
+            <EditText
+                android:id="@+id/et_addTravelDiaryDate"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignTop="@+id/text"
+                android:layout_marginStart="43dp"
+                android:onClick="onClickSetDate"
+                android:background="@drawable/travel_diary_add_date_bg"
+                android:ems="10"
+                android:inputType="date"
+                android:text=""
+                android:textColor="@color/read_only_color"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignTop="@id/et_addTravelDiaryText"
+                android:background="@color/title_bg_shadow"/>
+
+
+
+            <EditText
+                android:id="@+id/et_addTravelDiaryText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:paddingTop="10dp"
+                android:gravity="start|top"
+                android:background="@null"
+                android:hint="Write you diary hear..."
+                android:inputType="textMultiLine"
+                android:minLines="1" />
+
+            </RelativeLayout>
+
+        </ScrollView>
+
+
+        <ImageView
+            android:id="@+id/iv_AddTravelDiaryPicture"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="0dp"
+            android:padding="3dp"
+            android:background="@drawable/travel_diary_add_date_bg"
+            android:src="@drawable/ic_add_photo"
+            android:layout_alignParentBottom="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.024"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </RelativeLayout>
+
+
+</android.support.constraint.ConstraintLayout>
