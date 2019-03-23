@@ -45,8 +45,13 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -138,6 +143,7 @@ public class Travel_Diary_Add_Activity extends BaseCompatActivity implements Dat
                 return false;
             }
         });
+
 
         scrollView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -418,12 +424,39 @@ public class Travel_Diary_Add_Activity extends BaseCompatActivity implements Dat
                 Map<String, String> params = new HashMap<>();
                 final String strdate=travel_diary.getstrTime();
                 final String strText=travel_diary.getText();
-                ArrayList<String> tempBmpNameAttray=travel_diary.getBmpNameArray();
-                int numberofBmp=tempBmpNameAttray.size();
+                ArrayList<String> tempBmpNameArray=travel_diary.getBmpNameArray();
+                ArrayList<Bitmap> tempBmpArray=travel_diary.getBmpArray();
+                String tempstrBmp=null;
+
+                int numberofBmp=tempBmpNameArray.size();
 
                 if(numberofBmp!=0) {
                     for (int i = 0; i < numberofBmp; i++) {
-                        params.put("bmpname"+i, tempBmpNameAttray.get(i));
+                        params.put("bmpname"+i, tempBmpNameArray.get(i));
+
+                        String path=BitmapUtil.getDeafaultFilePath()+tempBmpNameArray.get(i);
+                        File f= new File(path);
+                        String r=UploadUtil.uploadFile(f);
+                        System.out.println(r);
+//                        try {
+//                            FileInputStream fileInputStream=new FileInputStream(f);
+//                            int  n=0;
+//                            StringBuffer sBuffer=new StringBuffer();
+//                            while (n!=-1)  //当n不等于-1,则代表未到末尾
+//                            {
+//                                n = fileInputStream.read();//读取文件的一个字节(8个二进制位),并将其由二进制转成十进制的整数返回
+//                                char by = (char) n; //转成字符
+//                                sBuffer.append(by);
+//                            }
+//                            tempstrBmp=sBuffer.toString();
+//
+//                        } catch (FileNotFoundException e) {
+//                            e.printStackTrace();
+//                        } catch (IOException e) {
+//                            e.printStackTrace();
+//                        }
+//
+//                        params.put("Bmp"+i,tempstrBmp);
                     }
                 }
                 params.put("userName", username);
@@ -441,8 +474,6 @@ public class Travel_Diary_Add_Activity extends BaseCompatActivity implements Dat
         requestQueue.add(request);
 
     }
-
-
 
 
 
