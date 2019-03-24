@@ -2,13 +2,16 @@ package com.example.jianpeng.mooddiary;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,10 +33,12 @@ import java.util.Map;
 
 public class LoginActivity extends BaseCompatActivity {
 
+    private SharedPreferences pref;
+    private SharedPreferences.Editor editor;
     private EditText inputUserID, inputPassword;
     private Button loginButton;
     private ProgressDialog progressDialog;
-
+    private CheckBox rememberPass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +51,18 @@ public class LoginActivity extends BaseCompatActivity {
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
+        pref = PreferenceManager.getDefaultSharedPreferences(this);
+        rememberPass = (CheckBox) findViewById(R.id.checkBox);
+
+        boolean isRemember = pref.getBoolean("remember_password", false);
+        if (isRemember) {
+            // 将账号和密码都设置到文本框中
+            String account = pref.getString("account", "");
+            String password = pref.getString("password", "");
+            inputUserID.setText(account);
+            inputPassword.setText(password);
+            rememberPass.setChecked(true);
+        }
     }
 
     public void onClickLogin(View view) {
@@ -68,6 +85,16 @@ public class LoginActivity extends BaseCompatActivity {
             //Todo: need to check weather the user has Internet before attempting checking the data
             // Start fetching the data from the Internet
             LoginRequest(userid,password);
+            editor = pref.edit();
+            if (rememberPass.isChecked()) { // 检查复选框是否被选中
+                editor.putBoolean("remember_password", true);
+                editor.putString("account", userid);
+                editor.putString("password", password);
+            }
+            else {
+                editor.clear();
+            }
+            editor.commit();
 
         }
         else {

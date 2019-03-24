@@ -3,7 +3,7 @@
     package="com.example.jianpeng.mooddiary">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -47,7 +47,7 @@
             android:name=".CardDiaryActivity"
             android:label="@string/Card_Diary"
             android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/MyAppTheme" />
         <activity
             android:name=".SettingActivity"
             android:label="@string/Setting"
@@ -63,9 +63,17 @@
             android:label="@string/Add_Work_Record"
             android:parentActivityName=".MoodTagActivity"
             android:theme="@style/MyAppTheme" />
-        <activity android:name=".Travel_Diary_Add_Activity"
+        <activity
+            android:name=".Travel_Diary_Add_Activity"
             android:label="@string/Add_Travel_Dairy"
             android:parentActivityName=".MoodTagActivity"
+            android:theme="@style/MyAppTheme" />
+        <activity
+            android:name=".Travel_Diary_Show_Activity"
+            android:parentActivityName=".MoodTagActivity"
+            android:theme="@style/MyAppTheme" />
+        <activity
+            android:name=".Card_Diary_Add_Activity"
             android:theme="@style/MyAppTheme" />
     </application>
 

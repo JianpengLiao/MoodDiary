@@ -1,19 +1,15 @@
 package com.example.jianpeng.mooddiary;
 
 public class CardDiaryItem {
-    private int mTextResource;
-    private int mTitleResource;
+    private String mTextResource;
 
-    public CardDiaryItem(int title, int text) {
-        mTitleResource = title;
+    public CardDiaryItem(String text) {
         mTextResource = text;
     }
 
-    public int getText() {
+    public String getText() {
         return mTextResource;
     }
 
-    public int getTitle() {
-        return mTitleResource;
-    }
+
 }

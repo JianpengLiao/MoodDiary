@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".TravelDiaryActivity">
+    tools:context=".Card_Diary_Add_Activity">
 
 
     <RelativeLayout
@@ -13,6 +13,7 @@
         android:layout_marginStart="0dp"
         android:layout_marginTop="0dp"
         android:background="@drawable/title_bg"
+        android:gravity="center_horizontal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -22,7 +23,7 @@
             android:gravity="center"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
-            android:onClick="onClickBack"
+            android:onClick="onClickCancel"
             android:src="@drawable/menu_back_bg" />
 
         <TextView
@@ -30,32 +31,58 @@
             android:layout_height="match_parent"
             android:layout_centerHorizontal="true"
             android:gravity="center"
-            android:text="@string/Travel_Diary"
+            android:text="@string/Card_Diary"
             android:textColor="@color/white"
             android:fontFamily="monospace"
             android:textStyle="bold"
             android:textSize="20sp" />
 
         <ImageView
+            android:id="@+id/iv_AddCardDiarySave"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="0dp"
             android:gravity="center"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
-            android:onClick="onClickcAddTravelDiary"
-            android:src="@drawable/munu_add_bg" />
+            android:onClick="onClickSave"
+            android:src="@drawable/ic_done_save"
+            android:layout_alignParentEnd="true" />
 
     </RelativeLayout>
 
-    <ListView
-        android:id="@+id/listView_TravelDiary"
+
+    <EditText
+        android:id="@+id/et_addCardDiaryText"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="64dp">
+        android:layout_marginEnd="30dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="70dp"
+        android:layout_marginBottom="60dp"
+        android:padding="10dp"
+        android:gravity="start|top"
+        android:background="@drawable/travel_diary_add_date_bg"
+        android:hint="Write you diary hear..."
+        android:inputType="textMultiLine"
+        android:minLines="1" />
 
-    </ListView>
+
+    <ImageView
+        android:id="@+id/iv_AddCardDiaryPicture"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/travel_diary_add_date_bg"
+        android:padding="3dp"
+        android:onClick="onClickAddPicture"
+        android:src="@drawable/ic_add_photo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.089"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_addCardDiaryText" />
+
+
 
 
 </android.support.constraint.ConstraintLayout>

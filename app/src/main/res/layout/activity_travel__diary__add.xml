@@ -40,12 +40,15 @@
 
         <ImageView
             android:id="@+id/iv_AddTravelDiarySave"
-            android:layout_width="@dimen/actionbar_height"
-            android:layout_height="@dimen/actionbar_height"
-            android:padding="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
             android:onClick="onClickSave"
-            android:src="@drawable/ic_save_travel_diary"
+            android:src="@drawable/ic_done_save"
             android:layout_alignParentEnd="true" />
+
 
     </RelativeLayout>
 
@@ -70,45 +73,48 @@
             android:layout_height="match_parent"
             android:layout_marginBottom="60dp">
 
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-
-            <TextView
-                android:id="@+id/text"
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Date:"
-                android:textSize="17sp" />
+                android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/et_addTravelDiaryDate"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignTop="@+id/text"
-                android:layout_marginStart="43dp"
-                android:onClick="onClickSetDate"
-                android:background="@drawable/travel_diary_add_date_bg"
-                android:ems="10"
-                android:inputType="date"
-                android:text=""
-                android:textColor="@color/read_only_color"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Date:"
+                        android:textSize="17sp" />
+
+                    <EditText
+                        android:id="@+id/et_addTravelDiaryDate"
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:paddingStart="10dp"
+                        android:onClick="onClickSetDate"
+                        android:background="@drawable/travel_diary_add_date_bg"
+                        android:ems="10"
+                        android:inputType="date"
+                        android:text=""
+                        android:textColor="@color/read_only_color"/>
+                </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_alignTop="@id/et_addTravelDiaryText"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
                 android:background="@color/title_bg_shadow"/>
-
-
 
             <EditText
                 android:id="@+id/et_addTravelDiaryText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
                 android:paddingTop="10dp"
                 android:gravity="start|top"
                 android:background="@null"
@@ -116,7 +122,7 @@
                 android:inputType="textMultiLine"
                 android:minLines="1" />
 
-            </RelativeLayout>
+            </LinearLayout>
 
         </ScrollView>
 
