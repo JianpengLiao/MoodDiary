@@ -14,6 +14,7 @@ public class Travel_Diary {
 
     private Date time;
     private String text;
+    private int numberOfBmp;
     public ArrayList<Bitmap> BmpArray;
     public ArrayList<String> BmpNameArray;
 
@@ -21,12 +22,14 @@ public class Travel_Diary {
     public Travel_Diary(){
         BmpArray=new ArrayList<Bitmap>();
         BmpNameArray=new ArrayList<String>();
+        numberOfBmp=0;
     }
     public Travel_Diary(Date t, String str){
         time=t;
         text=str;
         BmpArray=new ArrayList<Bitmap>();
         BmpNameArray=new ArrayList<String>();
+        numberOfBmp=0;
     }
 
     public void setTime(Date t){
@@ -58,6 +61,14 @@ public class Travel_Diary {
         SimpleDateFormat sdf = new SimpleDateFormat( "HH:mm:ss dd/MM/yyyy" );
         String strTime = sdf.format(time);
         return strTime;
+    }
+
+    public int getNumberOfBmp(){
+        return numberOfBmp;
+    }
+
+    public void setNumberOfBmp(int n){
+        numberOfBmp=n;
     }
 
     public ArrayList<Bitmap> getBmpArray() {

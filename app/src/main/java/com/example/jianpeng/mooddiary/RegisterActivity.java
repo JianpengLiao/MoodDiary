@@ -35,7 +35,6 @@ public class RegisterActivity extends BaseCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         inputUserID = findViewById(R.id.et_Register_UserID);
         inputPassword = findViewById(R.id.et_Register_Password);
@@ -169,5 +168,9 @@ public class RegisterActivity extends BaseCompatActivity {
         //TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
         //v.setTextColor(getResources().getColor(R.color.messageTextClor));
         toast.show();
+    }
+
+    public void onClickCancel(View view) {
+        onBackPressed();
     }
 }

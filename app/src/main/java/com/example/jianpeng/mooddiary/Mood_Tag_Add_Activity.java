@@ -30,7 +30,7 @@ import java.util.Map;
 
 
 
-public class Mood_Tag_Add_Activity extends AppCompatActivity implements DatePicker.OnDateChangedListener{
+public class Mood_Tag_Add_Activity extends BaseCompatActivity implements DatePicker.OnDateChangedListener{
 
     private ProgressDialog progressDialog;
     private Context context;

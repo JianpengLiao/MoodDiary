@@ -37,6 +37,7 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -120,7 +121,7 @@ public class Card_Diary_Add_Activity extends BaseCompatActivity {
 
             }catch (Exception e){
                 e.printStackTrace();
-                //showToast("图片插入失败",Toast.LENGTH_SHORT);
+                showToast("Image insertion failed",Toast.LENGTH_SHORT);
             }
         }
     }
@@ -187,15 +188,16 @@ public class Card_Diary_Add_Activity extends BaseCompatActivity {
         bitmap = ImageUtils.zoomImage(bitmap,width*0.88,bmpHeight/(bmpWidth/(width*0.88)));
 
         Date tempdate=new Date();
-        String tempstr=tempdate.toString();
-        String bmpName=User.getUserName()+"-"+tempstr+".png";
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd_HHmmss");
+        String tempstr = formatter.format(tempdate);
+        String bmpName=User.getUserName()+"_"+tempstr+".png";
         BitmapUtil.saveImgToDisk(bmpName,bitmap);
         card_diary.setBitmap(bitmap);
         card_diary.setBitmapName(bmpName);
 
         String path=BitmapUtil.getDeafaultFilePath()+bmpName;
 
-        String tagPath = "<img src=\""+path+"\"/>";//为图片路径加上<img>标签
+        String tagPath = "<img src=\""+bmpName+"\"/>";//为图片路径加上<img>标签
         SpannableString ss = new SpannableString(tagPath);//这里使用加了<img>标签的图片路径
         ImageSpan imageSpan = new ImageSpan(this, bitmap);
         ss.setSpan(imageSpan, 0, tagPath.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -252,7 +254,7 @@ public class Card_Diary_Add_Activity extends BaseCompatActivity {
             saveButton.setClickable(false);
 
             // Display the progress Dialog
-            progressDialog.setMessage("Add Travel Diary ...");
+            progressDialog.setMessage("Add Card Diary ...");
             if (!progressDialog.isShowing())
                 progressDialog.show();
 
@@ -331,8 +333,12 @@ public class Card_Diary_Add_Activity extends BaseCompatActivity {
                 String tempBmpName="";
                 if(numberofBmp!=0){
                     tempBmpName=card_diary.getBitmapName();
-                    Bitmap tempBmp=card_diary.getBitmap();
-
+                    String path=BitmapUtil.getDeafaultFilePath()+tempBmpName;
+                    File f= new File(path);
+                    String r=UploadUtil.uploadFile(f);
+                    if(r.equals("FAILURE")){
+                        showToast("Save Card Diary Picture failure, please try again later!", Toast.LENGTH_SHORT);
+                    }
                 }
 
                 params.put("userName", username);

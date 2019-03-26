@@ -141,38 +141,7 @@ public class ImageUtils {
         return newBitmap;
     }
 
-    /**
-     * 根据view的宽度，动态缩放bitmap尺寸
-     *
-     * @param width
-     *            view的宽度
-     */
- /*   public static Bitmap getScaledBitmap(String filePath, int width) {
-        BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inJustDecodeBounds = true;
-        BitmapFactory.decodeFile(filePath, options);
-        int sampleSize = options.outWidth > width ? options.outWidth / width
-                + 1 : 1;
-        options.inJustDecodeBounds = false;
-        options.inSampleSize = sampleSize;
-        return BitmapFactory.decodeFile(filePath, options);
-    }*/
 
-    /**
-     * 对图片进行按比例设置
-     * @param bitmap 要处理的图片
-     * @return 返回处理好的图片
-     */
-//    public static Bitmap getScaleBitmap(Bitmap bitmap, float widthScale, float heightScale){
-//        Matrix matrix = new Matrix();
-//        matrix.postScale(widthScale, heightScale);
-//        if(bitmap == null){
-//            return null;
-//        }
-//        Bitmap resizeBmp  =
-//                Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
-//        return resizeBmp;
-//    }
 
     /**
      * 根据路径删除图片
@@ -394,29 +363,5 @@ public class ImageUtils {
         return bitmap;
     }
 
-
-   /* //自己做的压缩算法，有错
-    public static Bitmap yyptCompressBitmap(String path,double newWidth,double newHeight){
-        Bitmap bitmap = null;
-        try{
-            FileInputStream fis = new FileInputStream(path);
-            bitmap = BitmapFactory.decodeStream(fis);
-
-            float width = bitmap.getWidth();
-            float height = bitmap.getHeight();
-            Matrix matrix = new Matrix();
-            float scaleWidth = ((float) newWidth) / width;
-            float scaleHeight = ((float) newHeight) / height;
-            matrix.postScale(scaleWidth,scaleHeight);
-            Bitmap bt = Bitmap.createBitmap(bitmap,0,0,(int) width,(int) height,matrix,true);
-            return bt;
-
-
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-
-        return bitmap;
-    }*/
 
 }

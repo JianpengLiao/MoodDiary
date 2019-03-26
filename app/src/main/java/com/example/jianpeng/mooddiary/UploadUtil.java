@@ -20,8 +20,8 @@ public class UploadUtil {
     private static final String TAG = "uploadFile";
     private static final int TIME_OUT = 10 * 10000000; // 超时时间
     private static final String CHARSET = "utf-8"; // 设置编码
-    public static final String SUCCESS = "SUCCESS";
-    public static final String FAILURE = "FAILURE";
+    private static final String SUCCESS = "SUCCESS";
+    private static final String FAILURE = "FAILURE";
 
 
 
@@ -29,7 +29,9 @@ public class UploadUtil {
         String BOUNDARY = UUID.randomUUID().toString(); // 边界标识 随机生成
         String PREFIX = "--", LINE_END = "\r\n";
         String CONTENT_TYPE = "multipart/form-data"; // 内容类型
-        String RequestURL = "http://120.79.26.213:8080/MoodDiaryWebAPP/AddTravelDiaryPictureServlet";
+        String RequestURL = new Config().getUrl_AddTravelDiaryPicture();
+
+        String result = null;
 
         try {
             URL url = new URL(RequestURL);
@@ -80,6 +82,14 @@ public class UploadUtil {
                  */
                 int res = conn.getResponseCode();
                 if (res == 200) {
+                    InputStream input =  conn.getInputStream();
+                    StringBuffer sb1= new StringBuffer();
+                    int ss ;
+                    while((ss=input.read())!=-1){
+                        sb1.append((char)ss);
+                    }
+                    result = sb1.toString();
+                    System.out.println(result);
                     return SUCCESS;
                 }
             }

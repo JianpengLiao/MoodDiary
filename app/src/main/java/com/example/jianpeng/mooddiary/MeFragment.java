@@ -26,11 +26,19 @@ public class MeFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         LinearLayout Lin_Setting = getActivity().findViewById(R.id.Lin_Setting);
+        LinearLayout Lin_PersonInfo=getActivity().findViewById(R.id.Lin_PersonInfo);
 
         Lin_Setting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getActivity(), SettingActivity.class));
+            }
+        });
+
+        Lin_PersonInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(),PersonInfoActivity.class));
             }
         });
     }

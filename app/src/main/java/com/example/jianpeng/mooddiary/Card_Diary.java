@@ -82,4 +82,8 @@ public class Card_Diary {
     public int getNumberOfBmp(){
         return numberOfBmp;
     }
+
+    public void setNumberOfBmp(int n){
+        numberOfBmp=n;
+    }
 }

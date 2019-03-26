@@ -41,7 +41,7 @@ public class WorkRecordActivity extends BaseCompatActivity {
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
-        progressDialog.setMessage("Update Mood Tag ...");
+        progressDialog.setMessage("Update Work Record ...");
         if (!progressDialog.isShowing())
             progressDialog.show();
 
@@ -71,7 +71,7 @@ public class WorkRecordActivity extends BaseCompatActivity {
             JSONArray jsonArray = jsonObject.getJSONArray("WorkRecordArray");
             int MoodTagNumber=jsonArray.length();
             if(MoodTagNumber==0)
-                showToast("You don't have any MoodTag, just add it.",Toast.LENGTH_LONG);
+                showToast("You don't have any Work Record, just add it.",Toast.LENGTH_LONG);
             else {
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject subjsonObject = (JSONObject) jsonArray.get(i);

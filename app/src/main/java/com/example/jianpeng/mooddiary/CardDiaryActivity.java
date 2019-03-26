@@ -2,6 +2,10 @@ package com.example.jianpeng.mooddiary;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.os.AsyncTask;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.util.Log;
@@ -22,6 +26,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -37,6 +42,7 @@ public class CardDiaryActivity extends BaseCompatActivity {
     private CardDiaryShadowTransformer mCardCardDiaryShadowTransformer;
 
     private ArrayList<Card_Diary> carddiaryList = new ArrayList<Card_Diary>();
+    public ArrayList<String> pictureNameList=new ArrayList<String>();
     private ProgressDialog progressDialog;
 
     @Override
@@ -48,7 +54,7 @@ public class CardDiaryActivity extends BaseCompatActivity {
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
-        progressDialog.setMessage("Update Mood Tag ...");
+        progressDialog.setMessage("Update Card Diary ...");
         if (!progressDialog.isShowing())
             progressDialog.show();
 
@@ -70,6 +76,9 @@ public class CardDiaryActivity extends BaseCompatActivity {
         mViewPager.setPageTransformer(false, mCardCardDiaryShadowTransformer);
         mViewPager.setOffscreenPageLimit(3);
 
+        if(progressDialog.isShowing()) {
+            progressDialog.dismiss();
+        }
     }
 
 
@@ -96,36 +105,41 @@ public class CardDiaryActivity extends BaseCompatActivity {
         try {
             JSONArray jsonArray = jsonObject.getJSONArray("CardDiaryArray");
             int MoodTagNumber=jsonArray.length();
-            if(MoodTagNumber==0)
-                showToast("You don't have any Card Diary, just add it.",Toast.LENGTH_LONG);
+            if(MoodTagNumber==0) {
+                if(progressDialog.isShowing()) {
+                    progressDialog.dismiss();
+                }
+                showToast("You don't have any Card Diary, just add it.", Toast.LENGTH_LONG);
+            }
             else {
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject subjsonObject = (JSONObject) jsonArray.get(i);
 
                     String strdate = subjsonObject.getString("strDate");
                     String strtext = subjsonObject.getString("strText");
+                    String strNumberOfBmp=subjsonObject.getString("numberOfBmp");
+
+                    int NumberOfBmp=Integer.parseInt(strNumberOfBmp);
+                    if(NumberOfBmp!=0){
+                        String strBmpName=subjsonObject.getString("strBmpName");
+                        pictureNameList.add(strBmpName);
+                    }
 
                     SimpleDateFormat df = new SimpleDateFormat ("HH:mm:ss dd/MM/yyyy");
                     try {
                         Date date = df.parse(strdate);
-                        carddiaryList.add(new Card_Diary(date, strtext));
+                        carddiaryList.add(new Card_Diary(date,strtext));
                     }
                     catch (ParseException e){
                         showToast("Update the Card Diary failure, please try again later!", Toast.LENGTH_SHORT);
                     }
-
                 }
-                initViewPager();
+                SortCardDiary();
+                new DownloadPicture().execute();
             }
 
         } catch (JSONException e) {
             showToast("Update the Card Diary failure, please try again later!", Toast.LENGTH_SHORT);
-        }
-
-        SortCardDiary();
-
-        if(progressDialog.isShowing()) {
-            progressDialog.dismiss();
         }
 
     }
@@ -198,13 +212,56 @@ public class CardDiaryActivity extends BaseCompatActivity {
     public void showToast(String str, int showTime) {
         Toast toast = Toast.makeText(getApplicationContext(), str, showTime);
         toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL , 0, 0);  //set the display location
-        //TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
-        //v.setTextColor(getResources().getColor(R.color.messageTextClor));
         toast.show();
     }
 
 
+    Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg){
+            Bundle data = msg.getData();
+            //从data中拿出存的数据
+            String val = data.getString("Result");
+            //将数据进行显示到界面等操作
+            if(val.equals("OK")){
+                initViewPager();
+            }
+        }
+    };
 
+
+
+    public class DownloadPicture extends AsyncTask<String,Void,String> {
+        String path=BitmapUtil.getDeafaultFilePath();
+        String checkDownload;
+
+        @Override
+        protected String doInBackground(String... strings) {
+            for(int i=0;i<pictureNameList.size();i++){
+                String name=pictureNameList.get(i);
+                String Bmppath=path+name;
+                File f=new File(Bmppath);
+                if(!f.exists())
+                {
+                    checkDownload=DownloadUtils.downloadFile(name);
+                    if(checkDownload.equals("FAILURE")){
+                        Log.e("DownloadError","Can not dowload the picture of Card Diary, The name is"+name);
+                    }
+                }
+            }
+            return checkDownload;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            Message msg = Message.obtain();
+            Bundle data = new Bundle();
+            data.putString("Result", "OK");
+            msg.setData(data);
+            handler.sendMessage(msg);
+        }
+    }
 
 
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,114 +8,145 @@
     android:orientation="vertical"
     tools:context=".LoginActivity">
 
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/Login"
-        android:paddingBottom="10dp"
-        android:textSize="30sp"
-        android:layout_above="@+id/constraintLayout"/>
-
-
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/constraintLayout"
-        android:layout_width="300dp"
-        android:layout_height="400dp"
-        android:background="@drawable/ic_login_bg">
-
-        <ImageView
-            android:id="@+id/iv_login"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:src="@drawable/me_avatar"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:contentDescription="@string/desc"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/actionbar_height"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp"
+        android:background="@drawable/title_bg"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
 
-        <EditText
-            android:id="@+id/et_UserID"
-            android:layout_width="220dp"
-            android:layout_height="50dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="44dp"
-            android:background="@drawable/login_edittext_bg"
-            android:ems="10"
-            android:hint="@string/UserID"
-            android:inputType="textPersonName"
-            android:paddingEnd="30dp"
-            android:paddingStart="30dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iv_login" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:text="@string/app_name"
+            android:textColor="@color/white"
+            android:fontFamily="monospace"
+            android:textStyle="bold"
+            android:textSize="20sp" />
+
+    </RelativeLayout>
 
 
-        <EditText
-            android:id="@+id/et_Password"
-            android:layout_width="220dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="28dp"
-            android:background="@drawable/login_edittext_bg"
-            android:ems="10"
-            android:hint="@string/Password"
-            android:inputType="textPassword"
-            android:paddingEnd="30dp"
-            android:paddingStart="30dp"
-            app:layout_constraintEnd_toEndOf="@+id/et_UserID"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="@+id/et_UserID"
-            app:layout_constraintTop_toBottomOf="@+id/et_UserID" />
 
-        <Button
-            android:id="@+id/btn_Login"
-            android:layout_width="220dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="50dp"
-            android:onClick="onClickLogin"
-            android:background="@drawable/login_button_selector"
-            android:text="@string/Login"
-            app:layout_constraintEnd_toEndOf="@+id/et_Password"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="@+id/et_Password"
-            app:layout_constraintTop_toBottomOf="@+id/et_Password" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="60dp"
+        android:gravity="center"
+        android:orientation="vertical">
 
-        <CheckBox
-            android:id="@+id/checkBox"
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:text="Remember password"
-            app:layout_constraintEnd_toEndOf="@+id/et_Password"
-            app:layout_constraintHorizontal_bias="0.118"
-            app:layout_constraintStart_toStartOf="@+id/et_Password"
-            app:layout_constraintTop_toBottomOf="@+id/et_Password" />
+            android:text="@string/Login"
+            android:paddingBottom="10dp"
+            android:textSize="30sp" />
 
 
-    </android.support.constraint.ConstraintLayout>
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/constraintLayout"
+            android:layout_width="300dp"
+            android:layout_height="400dp"
+            android:background="@drawable/ic_login_bg">
+
+            <ImageView
+                android:id="@+id/iv_login"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:src="@drawable/me_avatar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:contentDescription="@string/desc"/>
 
 
-    <TextView
-        android:id="@+id/tv_creatNewCount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingTop="10dp"
-        android:gravity="center"
-        android:onClick="onClickLinktoRegister"
-        android:text="@string/Create_a_new_account."
-        android:textSize="16sp"
-        android:layout_below="@+id/constraintLayout"/>
+            <EditText
+                android:id="@+id/et_UserID"
+                android:layout_width="220dp"
+                android:layout_height="50dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="44dp"
+                android:background="@drawable/login_edittext_bg"
+                android:ems="10"
+                android:hint="@string/UserID"
+                android:inputType="textPersonName"
+                android:paddingEnd="30dp"
+                android:paddingStart="30dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/iv_login" />
+
+
+            <EditText
+                android:id="@+id/et_Password"
+                android:layout_width="220dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="28dp"
+                android:background="@drawable/login_edittext_bg"
+                android:ems="10"
+                android:hint="@string/Password"
+                android:inputType="textPassword"
+                android:paddingEnd="30dp"
+                android:paddingStart="30dp"
+                app:layout_constraintEnd_toEndOf="@+id/et_UserID"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="@+id/et_UserID"
+                app:layout_constraintTop_toBottomOf="@+id/et_UserID" />
+
+            <Button
+                android:id="@+id/btn_Login"
+                android:layout_width="220dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="50dp"
+                android:onClick="onClickLogin"
+                android:background="@drawable/login_button_selector"
+                android:text="@string/Login"
+                app:layout_constraintEnd_toEndOf="@+id/et_Password"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="@+id/et_Password"
+                app:layout_constraintTop_toBottomOf="@+id/et_Password" />
+
+            <CheckBox
+                android:id="@+id/checkBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="Remember password"
+                app:layout_constraintEnd_toEndOf="@+id/et_Password"
+                app:layout_constraintHorizontal_bias="0.118"
+                app:layout_constraintStart_toStartOf="@+id/et_Password"
+                app:layout_constraintTop_toBottomOf="@+id/et_Password" />
+
+
+        </android.support.constraint.ConstraintLayout>
+
+
+        <TextView
+            android:id="@+id/tv_creatNewCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:gravity="center"
+            android:onClick="onClickLinktoRegister"
+            android:text="@string/Create_a_new_account."
+            android:textSize="16sp" />
+
+
+    </LinearLayout>
 
 
 
-
-</LinearLayout>
+    </RelativeLayout>

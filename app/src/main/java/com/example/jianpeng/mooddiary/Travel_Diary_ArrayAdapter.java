@@ -3,6 +3,8 @@ package com.example.jianpeng.mooddiary;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.ThumbnailUtils;
+import android.provider.MediaStore;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ImageSpan;
@@ -19,7 +21,8 @@ public class Travel_Diary_ArrayAdapter extends ArrayAdapter<Travel_Diary> {
 
     private int resourceId;
     Context context;
-    Travel_Diary_ViewHolder viewHolder;
+    private Travel_Diary_ViewHolder viewHolder;
+    public static String name;
 
     public Travel_Diary_ArrayAdapter(Context context, int resource, List<Travel_Diary> objects) {
         super(context, resource, objects);
@@ -37,6 +40,7 @@ public class Travel_Diary_ArrayAdapter extends ArrayAdapter<Travel_Diary> {
             viewHolder = new Travel_Diary_ViewHolder();
             viewHolder.TextView_Time = view.findViewById(R.id.tv_TravelDiary_Time);
             viewHolder.TextView_Text = view.findViewById(R.id.tv_TravelDiary_Text);
+            viewHolder.ImageView_Image=view.findViewById(R.id.iv_TravelDiary);
             view.setTag(viewHolder);
         }
         else {
@@ -45,27 +49,41 @@ public class Travel_Diary_ArrayAdapter extends ArrayAdapter<Travel_Diary> {
         }
 
         viewHolder.TextView_Time.setText(traveldiary.getstrTime());
-        initContent(traveldiary.getText());
+        String subStr=initContent(traveldiary.getText());
+        viewHolder.TextView_Text.setText(subStr);
+        String path=BitmapUtil.getDeafaultFilePath()+name;
+        final Bitmap bitmap =  BitmapFactory.decodeFile(path);
+        if(bitmap!=null) {
+            Bitmap bmp = ImageUtils.zoomImage(bitmap, 100, 100);
+            //final Bitmap dexbitmap = ThumbnailUtils.extractThumbnail(bitmap,100,100);
+            viewHolder.ImageView_Image.setImageBitmap(bmp);
+        }
         return view;
-
     }
 
 
-    private void initContent(String input){
+    public static String initContent(String input){
 
+        int flag=0;
         String subStr="";
         Pattern p = Pattern.compile("\\<img src=\".*?\"\\/>");
         Matcher m = p.matcher(input);
 
+
         int i=0;
         while(m.find()){
+            if(flag==0) {
+                String s = m.group();
+                name = s.replaceAll("\\<img src=\"|\"\\/>", "").trim();
+                flag=1;
+            }
             int start = m.start();
             int end = m.end();
             subStr=subStr+input.substring(i,start);
             i=end;
         }
         subStr=subStr+input.substring(i,input.length());
-        viewHolder.TextView_Text.setText(subStr);
+        return subStr;
     }
 
 

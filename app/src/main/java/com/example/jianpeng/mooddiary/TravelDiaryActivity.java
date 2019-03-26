@@ -2,6 +2,7 @@ package com.example.jianpeng.mooddiary;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,6 +24,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -52,8 +54,32 @@ public class TravelDiaryActivity extends BaseCompatActivity {
     }
 
 
+    public void initListView(){
+        Travel_Diary_ArrayAdapter traveldiaryArrayAdapter =
+                new Travel_Diary_ArrayAdapter(
+                        getBaseContext(),
+                        R.layout.layout_travel_diary_item, // the layout for each item in the list
+                        traveldiaryList); // the arrayList to feed the arrayAdapter
 
-    private void SortMoodTag(){
+        ListView listView = findViewById(R.id.listView_TravelDiary);
+        listView.setAdapter(traveldiaryArrayAdapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Travel_Diary_List.setonClickItem(i);
+                Intent intent = new Intent(getApplicationContext(), Travel_Diary_Show_Activity.class);
+                startActivity(intent);
+            }
+        });
+        if(progressDialog.isShowing()) {
+            progressDialog.dismiss();
+        }
+    }
+
+
+
+    private void SortTravelDiary(){
         Travel_Diary temptraveldiary=new Travel_Diary();
         Date d1,d2;
         for (int i=0; i<traveldiaryList.size()-1;i++){
@@ -78,7 +104,9 @@ public class TravelDiaryActivity extends BaseCompatActivity {
 
         try {
             JSONArray jsonArray = jsonObject.getJSONArray("TravelDiaryArray");
+            JSONArray jsonArrayName=jsonObject.getJSONArray("TravelDiaryBmpNameArray");
             int TravelDiaryNumber=jsonArray.length();
+            int PictureNumber=jsonArrayName.length();
             if(TravelDiaryNumber==0)
                 showToast("You don't have any Travel Diary, just add it.",Toast.LENGTH_LONG);
             else {
@@ -100,34 +128,19 @@ public class TravelDiaryActivity extends BaseCompatActivity {
 
                 }
             }
+            for(int j=0;j<PictureNumber;j++){
+                JSONObject subjsonObjectName=(JSONObject)jsonArrayName.get(j);
+                String strPictureName=subjsonObjectName.getString("bmpname");
+                Travel_Diary_List.addTravelDiaryPictureName(strPictureName);
+            }
+            new DownloadPicture().execute();
 
         } catch (JSONException e) {
             showToast("Update the Travel Diary failure, please try again later!", Toast.LENGTH_SHORT);
         }
 
-        SortMoodTag();
-
-        if(progressDialog.isShowing()) {
-            progressDialog.dismiss();
-        }
-
-        Travel_Diary_ArrayAdapter traveldiaryArrayAdapter =
-                new Travel_Diary_ArrayAdapter(
-                        getBaseContext(),
-                        R.layout.layout_travel_diary_item, // the layout for each item in the list
-                        traveldiaryList); // the arrayList to feed the arrayAdapter
-
-        ListView listView = findViewById(R.id.listView_TravelDiary);
-        listView.setAdapter(traveldiaryArrayAdapter);
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Travel_Diary_List.setonClickItem(i);
-                Intent intent = new Intent(getApplicationContext(), Travel_Diary_Show_Activity.class);
-                startActivity(intent);
-            }
-        });
+        SortTravelDiary();
+        initListView();
 
     }
 
@@ -150,10 +163,10 @@ public class TravelDiaryActivity extends BaseCompatActivity {
                             JSONObject jsonObject = (JSONObject) new JSONObject(response).get("TravelDiary");
                             String result = jsonObject.getString("Result");
                             if (result.equals("success")) {
-                                //做自己的登录成功操作，如页面跳转
+                                //成功操作
                                 generateDummyContent(jsonObject);
                             } else {
-                                //做自己的登录失败操作，如Toast提示
+                                //失败操作
                                 if(progressDialog.isShowing()) {
                                     progressDialog.dismiss();
                                 }
@@ -213,8 +226,34 @@ public class TravelDiaryActivity extends BaseCompatActivity {
     public void showToast(String str, int showTime) {
         Toast toast = Toast.makeText(getApplicationContext(), str, showTime);
         toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL , 0, 0);  //set the display location
-        //TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
-        //v.setTextColor(getResources().getColor(R.color.messageTextClor));
         toast.show();
+    }
+
+
+
+    public class DownloadPicture extends AsyncTask<String,Void,String> {
+
+        String path=BitmapUtil.getDeafaultFilePath();
+        String checkDownload;
+        @Override
+        protected String doInBackground(String... strings) {
+            ArrayList<String> TravelDiaryPictureNameList=Travel_Diary_List.getTravelDiaryPictureNameList();
+            for(int i=0;i<TravelDiaryPictureNameList.size();i++){
+                String name=TravelDiaryPictureNameList.get(i);
+                String Bmppath=path+name;
+                File f=new File(Bmppath);
+                if(!f.exists())
+                {
+                    checkDownload=DownloadUtils.downloadFile(name);
+                }
+            }
+            return checkDownload;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+
+        }
     }
 }

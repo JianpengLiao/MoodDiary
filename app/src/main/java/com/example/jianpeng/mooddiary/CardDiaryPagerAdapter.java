@@ -105,7 +105,8 @@ public class CardDiaryPagerAdapter extends PagerAdapter implements CardDiaryAdap
             int start = m.start();
             int end = m.end();
             //path是去掉<img src=""/>的中间的图片路径
-            String path = s.replaceAll("\\<img src=\"|\"\\/>", "").trim();
+            String name = s.replaceAll("\\<img src=\"|\"\\/>", "").trim();
+            String path=BitmapUtil.getDeafaultFilePath()+name;
 
             //利用spannableString和ImageSpan来替换掉这些图片
             int width = ScreenUtils.getScreenWidth(context);

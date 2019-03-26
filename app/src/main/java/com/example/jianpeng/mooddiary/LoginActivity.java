@@ -5,15 +5,12 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -24,9 +21,11 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -119,7 +118,6 @@ public class LoginActivity extends BaseCompatActivity {
 
         //取得请求队列
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-
         //防止重复请求，所以先取消tag标识的请求队列
         requestQueue.cancelAll(tag);
 
@@ -129,11 +127,13 @@ public class LoginActivity extends BaseCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         try {
-                            JSONObject jsonObject = (JSONObject) new JSONObject(response).get("params");
+                            JSONObject BigJsonObject=new JSONObject(response);
+                            JSONObject jsonObject = (JSONObject) BigJsonObject.get("params");
                             String result = jsonObject.getString("Result");
                             if (result.equals("success")) {
                                 //做自己的登录成功操作，如页面跳转
                                 User.setUsername(accountNumber);
+                                setAllSwapDataList(BigJsonObject);
                                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                 startActivity(intent);
                                 if(progressDialog.isShowing()) {
@@ -182,7 +182,6 @@ public class LoginActivity extends BaseCompatActivity {
 
         //设置Tag标签
         request.setTag(tag);
-
         //将请求添加到队列中
         requestQueue.add(request);
     }
@@ -193,10 +192,49 @@ public class LoginActivity extends BaseCompatActivity {
     {
         Toast toast = Toast.makeText(getApplicationContext(), str, showTime);
         toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL , 0, 0);  //set the display location
-        //TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
-        //v.setTextColor(getResources().getColor(R.color.messageTextClor));
         toast.show();
     }
 
 
-}
+
+    private void setAllSwapDataList(JSONObject jsonObject){
+            ArrayList<String> tempCDList=new ArrayList<String>();
+            ArrayList<String> tempTDList=new ArrayList<String>();
+            ArrayList<News> tempNewsList=new ArrayList<News>();
+
+            try {
+                JSONArray jsonArrayCDName = jsonObject.getJSONArray("CDNameArray");
+                int CDPictureNumber = jsonArrayCDName.length();
+                JSONArray jsonArrayTDName = jsonObject.getJSONArray("TDNameArray");
+                int TDPictureNumber = jsonArrayTDName.length();
+                JSONArray jsonArrayNews = jsonObject.getJSONArray("NewsArray");
+                int NewsNumber = jsonArrayNews.length();
+
+                for (int i = 0; i < CDPictureNumber; i++) {
+                    JSONObject subjsonObject = (JSONObject) jsonArrayCDName.get(i);
+                    String name = subjsonObject.getString("bmpname");
+                    tempCDList.add(name);
+                }
+                for (int j = 0; j < TDPictureNumber; j++) {
+                    JSONObject subjsonObject = (JSONObject) jsonArrayTDName.get(j);
+                    String name = subjsonObject.getString("bmpname");
+                    tempTDList.add(name);
+                }
+                for (int k = 0; k < NewsNumber; k++) {
+                    JSONObject subjsonObject = (JSONObject) jsonArrayNews.get(k);
+                    String title = subjsonObject.getString("Title");
+                    String url = subjsonObject.getString("Url");
+                    String newsPicName = subjsonObject.getString("NewsPicName");
+                    tempNewsList.add(new News(title,url,newsPicName));
+                }
+                AllSwapDataList.setCardDiaryPictureList(tempCDList);
+                AllSwapDataList.setTravelDiaryPictureList(tempTDList);
+                AllSwapDataList.setNewsList(tempNewsList);
+
+            } catch (JSONException e) {
+               Log.e("setAllPictureListFailue",e.toString());
+            }
+        }
+
+
+    }

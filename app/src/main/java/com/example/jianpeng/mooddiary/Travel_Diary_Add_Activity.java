@@ -53,6 +53,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.sql.Time;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -279,7 +280,7 @@ public class Travel_Diary_Add_Activity extends BaseCompatActivity implements Dat
                     et_TravelDiaryText.append("\n");
                 }
                 else{
-                    showToast("插入失败，无读写存储权限，请到权限中心开启",Toast.LENGTH_LONG);
+                    showToast("Insert failed, no read and write storage permissions, please go to the permission center",Toast.LENGTH_LONG);
                 }
 
             }catch (Exception e){
@@ -320,15 +321,16 @@ public class Travel_Diary_Add_Activity extends BaseCompatActivity implements Dat
         bitmap = ImageUtils.zoomImage(bitmap,width*0.88,bmpHeight/(bmpWidth/(width*0.88)));
 
         Date tempdate=new Date();
-        String tempstr=tempdate.toString();
-        String bmpName=User.getUserName()+"-"+tempstr+".png";
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd_HHmmss");
+        String tempstr = formatter.format(tempdate);
+        String bmpName=User.getUserName()+"_"+tempstr+".png";
         BitmapUtil.saveImgToDisk(bmpName,bitmap);
         travel_diary.getBmpArray().add(bitmap);
         travel_diary.getBmpNameArray().add(bmpName);
 
         String path=BitmapUtil.getDeafaultFilePath()+bmpName;
 
-        String tagPath = "<img src=\""+path+"\"/>";//为图片路径加上<img>标签
+        String tagPath = "<img src=\""+bmpName+"\"/>";//为图片路径加上<img>标签
         SpannableString ss = new SpannableString(tagPath);//这里使用加了<img>标签的图片路径
         ImageSpan imageSpan = new ImageSpan(this, bitmap);
         ss.setSpan(imageSpan, 0, tagPath.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -368,7 +370,6 @@ public class Travel_Diary_Add_Activity extends BaseCompatActivity implements Dat
 
         //取得请求队列
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-
         //防止重复请求，所以先取消tag标识的请求队列
         requestQueue.cancelAll(tag);
 
@@ -381,7 +382,7 @@ public class Travel_Diary_Add_Activity extends BaseCompatActivity implements Dat
                             JSONObject jsonObject = (JSONObject) new JSONObject(response).get("params");
                             String result = jsonObject.getString("Result");
                             if (result.equals("success")) {
-                                //做自己的登录成功操作，如页面跳转
+                                //成功操作
                                 Intent intent = new Intent(getApplicationContext(), TravelDiaryActivity.class);
                                 startActivity(intent);
                                 if(progressDialog.isShowing()) {
@@ -390,7 +391,7 @@ public class Travel_Diary_Add_Activity extends BaseCompatActivity implements Dat
                                 finish();
 
                             } else {
-                                //做自己的登录失败操作，如Toast提示
+                                //失败操作
                                 if(progressDialog.isShowing()) {
                                     progressDialog.dismiss();
                                 }
@@ -425,9 +426,6 @@ public class Travel_Diary_Add_Activity extends BaseCompatActivity implements Dat
                 final String strdate=travel_diary.getstrTime();
                 final String strText=travel_diary.getText();
                 ArrayList<String> tempBmpNameArray=travel_diary.getBmpNameArray();
-                ArrayList<Bitmap> tempBmpArray=travel_diary.getBmpArray();
-                String tempstrBmp=null;
-
                 int numberofBmp=tempBmpNameArray.size();
 
                 if(numberofBmp!=0) {
@@ -437,26 +435,9 @@ public class Travel_Diary_Add_Activity extends BaseCompatActivity implements Dat
                         String path=BitmapUtil.getDeafaultFilePath()+tempBmpNameArray.get(i);
                         File f= new File(path);
                         String r=UploadUtil.uploadFile(f);
-                        System.out.println(r);
-//                        try {
-//                            FileInputStream fileInputStream=new FileInputStream(f);
-//                            int  n=0;
-//                            StringBuffer sBuffer=new StringBuffer();
-//                            while (n!=-1)  //当n不等于-1,则代表未到末尾
-//                            {
-//                                n = fileInputStream.read();//读取文件的一个字节(8个二进制位),并将其由二进制转成十进制的整数返回
-//                                char by = (char) n; //转成字符
-//                                sBuffer.append(by);
-//                            }
-//                            tempstrBmp=sBuffer.toString();
-//
-//                        } catch (FileNotFoundException e) {
-//                            e.printStackTrace();
-//                        } catch (IOException e) {
-//                            e.printStackTrace();
-//                        }
-//
-//                        params.put("Bmp"+i,tempstrBmp);
+                        if(r.equals("FAILURE")){
+                            showToast("Save Travel Diary Picture failure, please try again later!", Toast.LENGTH_SHORT);
+                        }
                     }
                 }
                 params.put("userName", username);
@@ -469,10 +450,8 @@ public class Travel_Diary_Add_Activity extends BaseCompatActivity implements Dat
 
         //设置Tag标签
         request.setTag(tag);
-
         //将请求添加到队列中
         requestQueue.add(request);
-
     }
 
 

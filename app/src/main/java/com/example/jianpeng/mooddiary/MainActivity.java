@@ -1,16 +1,18 @@
 package com.example.jianpeng.mooddiary;
 
-import android.content.Intent;
+import android.Manifest;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.TextView;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class MainActivity extends BaseCompatActivity {
@@ -32,6 +34,7 @@ public class MainActivity extends BaseCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initFragment();
+        new DownloadPicture().execute();
     }
 
     private void initFragment() {
@@ -107,6 +110,59 @@ public class MainActivity extends BaseCompatActivity {
         }
         transaction.show(fragments[index]).commitAllowingStateLoss();
     }
+
+
+
+    public class DownloadPicture extends AsyncTask<String,Void,String> {
+
+        String path=BitmapUtil.getDeafaultFilePath();
+        String checkDownload;
+        @Override
+        protected String doInBackground(String... strings) {
+            ArrayList<String> tempCDList= AllSwapDataList.getCardDiaryPictureList();
+            ArrayList<String> tempTDList= AllSwapDataList.getTravelDiaryPictureList();
+            ArrayList<News> tempNewsList=AllSwapDataList.getNewsList();
+
+            for (int i = 0; i < tempCDList.size(); i++) {
+                String name = tempCDList.get(i);
+                String Bmppath = path + name;
+                File f = new File(Bmppath);
+                if (!f.exists()) {
+                    checkDownload = DownloadUtils.downloadFile(name);
+                }
+            }
+            for (int j = 0; j < tempTDList.size(); j++) {
+                String name = tempTDList.get(j);
+                String Bmppath = path + name;
+                File f = new File(Bmppath);
+                if (!f.exists()) {
+                    checkDownload = DownloadUtils.downloadFile(name);
+                }
+            }
+            for (int k = 0; k < tempNewsList.size(); k++) {
+                News tempNews = tempNewsList.get(k);
+                String name=tempNews.getPicName();
+                if(name==null)
+                    continue;
+                String Bmppath = path + name;
+                File f = new File(Bmppath);
+                if (!f.exists()) {
+                    checkDownload = DownloadUtils.downloadFile(name);
+                }
+            }
+            return checkDownload;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+
+        }
+    }
+
+
+
+
 
 
 }

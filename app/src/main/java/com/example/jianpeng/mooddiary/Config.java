@@ -25,9 +25,13 @@ public class Config {
 
     private String url_GetTravelDiary="http://120.79.26.213:8080/MoodDiaryWebAPP/GetTravelDiaryServlet";
 
+    private String url_AddTravelDiaryPicture="http://120.79.26.213:8080/MoodDiaryWebAPP/AddTravelDiaryPictureServlet";
+
     private String url_AddCardDiary="http://120.79.26.213:8080/MoodDiaryWebAPP/AddCardDiaryServlet";
 
     private String url_GetCardDiary="http://120.79.26.213:8080/MoodDiaryWebAPP/GetCardDiaryServlet";
+
+    private String url_SaveHeadPortrait="http://120.79.26.213:8080/MoodDiaryWebAPP/SaveHeadPortraitServlet";
 
 
     public String getLoginUrl() {
@@ -70,4 +74,11 @@ public class Config {
         return url_GetCardDiary;
     }
 
+    public String getSaveHeadPortraitUrl(){
+        return url_SaveHeadPortrait;
+    }
+
+    public String getUrl_AddTravelDiaryPicture(){
+        return url_AddTravelDiaryPicture;
+    }
 }

@@ -64,7 +64,8 @@ public class Travel_Diary_Show_Activity extends BaseCompatActivity {
             int start = m.start();
             int end = m.end();
             //path是去掉<img src=""/>的中间的图片路径
-            String path = s.replaceAll("\\<img src=\"|\"\\/>", "").trim();
+            String name = s.replaceAll("\\<img src=\"|\"\\/>", "").trim();
+            String path=BitmapUtil.getDeafaultFilePath()+name;
 
             //利用spannableString和ImageSpan来替换掉这些图片
             int width = ScreenUtils.getScreenWidth(context);
@@ -73,14 +74,21 @@ public class Travel_Diary_Show_Activity extends BaseCompatActivity {
             try {
                 BitmapFactory.Options options = new BitmapFactory.Options();
                 Bitmap bitmap = BitmapFactory.decodeFile(path, options);
-                bitmap = ImageUtils.zoomImage(bitmap, width * 0.88, bitmap.getHeight() / (bitmap.getWidth() / (width * 0.88)));
-                ImageSpan imageSpan = new ImageSpan(context, bitmap);
-                spannable.setSpan(imageSpan, start, end, Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
+                String onlyText;
+                if(bitmap==null) {
+                    onlyText = Travel_Diary_ArrayAdapter.initContent(input);
+                    et_Text.setText(onlyText);
+                }
+                else {
+                    bitmap = ImageUtils.zoomImage(bitmap, width * 0.88, bitmap.getHeight() / (bitmap.getWidth() / (width * 0.88)));
+                    ImageSpan imageSpan = new ImageSpan(context, bitmap);
+                    spannable.setSpan(imageSpan, start, end, Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
+                    et_Text.setText(spannable);
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-        et_Text.setText(spannable);
         et_Date.setText(strDate);
     }
 
