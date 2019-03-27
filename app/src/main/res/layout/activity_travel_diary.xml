@@ -37,16 +37,6 @@
             android:textSize="20sp" />
 
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="60dp"
-            android:gravity="center"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:onClick="onClickcUpDate"
-            android:src="@drawable/munu_add_bg" />
 
 
         <ImageView

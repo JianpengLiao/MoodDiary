@@ -233,9 +233,9 @@ public class TravelDiaryActivity extends BaseCompatActivity {
         toast.show();
     }
 
-    public void onClickcUpDate(View view) {
-        traveldiaryArrayAdapter.notifyDataSetChanged();
-    }
+//    public void onClickcUpDate(View view) {
+//        traveldiaryArrayAdapter.notifyDataSetChanged();
+//    }
 
 
 
