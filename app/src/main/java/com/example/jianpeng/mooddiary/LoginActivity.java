@@ -30,7 +30,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class LoginActivity extends BaseCompatActivity {
+public class LoginActivity extends CheckPermissionsActivity {
 
     private SharedPreferences pref;
     private SharedPreferences.Editor editor;

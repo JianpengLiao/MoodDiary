@@ -52,9 +52,7 @@
             android:theme="@style/MyAppTheme" />
         <activity
             android:name=".SettingActivity"
-            android:label="@string/Setting"
-            android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/MyAppTheme" />
         <activity
             android:name=".Mood_Tag_Add_Activity"
             android:label="@string/Add_Mood_Tag"
@@ -83,7 +81,9 @@
         <activity
             android:name=".Change_headportrait_Activity"
             android:theme="@style/MyAppTheme" />
-        <activity android:name=".News_Show_Activity"></activity>
+        <activity android:name=".News_Show_Activity"
+            android:label="@string/title_news"
+            android:theme="@style/AppTheme" />
     </application>
 
 </manifest>

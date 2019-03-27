@@ -24,7 +24,8 @@
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
             android:onClick="onClickBack"
-            android:src="@drawable/menu_back_bg" />
+            android:src="@drawable/menu_back_bg"
+            android:contentDescription="@string/desc"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -46,7 +47,8 @@
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
             android:onClick="onClickAddCardDiary"
-            android:src="@drawable/munu_add_bg" />
+            android:src="@drawable/munu_add_bg"
+            android:contentDescription="@string/desc"/>
 
     </RelativeLayout>
 

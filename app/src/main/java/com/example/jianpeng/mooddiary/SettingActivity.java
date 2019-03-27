@@ -15,7 +15,7 @@ public class SettingActivity extends BaseCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
     }
 
 
@@ -40,5 +40,9 @@ public class SettingActivity extends BaseCompatActivity {
         Dlg.setTitle("Confirm");
         Dlg.setIcon(R.mipmap.ic_launcher);
         Dlg.show();
+    }
+
+    public void onClickCancel(View view) {
+        onBackPressed();
     }
 }
