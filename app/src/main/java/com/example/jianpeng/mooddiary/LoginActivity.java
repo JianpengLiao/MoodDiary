@@ -4,6 +4,8 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Gravity;
@@ -25,6 +27,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -134,12 +137,22 @@ public class LoginActivity extends CheckPermissionsActivity {
                                 //做自己的登录成功操作，如页面跳转
                                 User.setUsername(accountNumber);
                                 setAllSwapDataList(BigJsonObject);
-                                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                                startActivity(intent);
-                                if(progressDialog.isShowing()) {
-                                    progressDialog.dismiss();
-                                }
-                                finish();
+
+                                new Thread(new Runnable(){
+                                    @Override
+                                    public void run() {
+                                        downloadNewsPicture();
+                                        Message msg = Message.obtain();
+                                        handler.sendMessage(msg);
+                                    }
+                                }).start();
+
+//                                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+//                                startActivity(intent);
+//                                if(progressDialog.isShowing()) {
+//                                    progressDialog.dismiss();
+//                                }
+//                                finish();
 
                             } else {
                                 //做自己的登录失败操作，如Toast提示
@@ -232,9 +245,48 @@ public class LoginActivity extends CheckPermissionsActivity {
                 AllSwapDataList.setNewsList(tempNewsList);
 
             } catch (JSONException e) {
-               Log.e("setAllPictureListFailue",e.toString());
+               Log.i("setAllPictureListFailue",e.toString());
             }
         }
+
+
+
+    Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg){
+
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(intent);
+            if(progressDialog.isShowing()) {
+                progressDialog.dismiss();
+            }
+            finish();
+
+        }
+    };
+
+
+    public void downloadNewsPicture(){
+
+            ArrayList<News> tempNewsList = AllSwapDataList.getNewsList();
+            String path = BitmapUtil.getDeafaultFilePath();
+
+            for (int k = 0; k < tempNewsList.size(); k++) {
+                News tempNews = tempNewsList.get(k);
+                String name = tempNews.getPicName();
+                if (name == null)
+                    continue;
+                String Bmppath = path + name;
+                File f = new File(Bmppath);
+                if (!f.exists()) {
+                    String tempstr = DownloadUtils.downloadFile(name);
+                    Log.e("downloadNewsPictuer", tempstr);
+                }
+            }
+
+        }
+
+
 
 
     }

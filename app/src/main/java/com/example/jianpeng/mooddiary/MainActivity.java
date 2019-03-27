@@ -17,7 +17,6 @@ import java.util.List;
 
 public class MainActivity extends BaseCompatActivity {
 
-    private TextView mTextMessage;
 
     private BottomNavigationView bottomNavigationView;
     private  HomeFragment home_fragment;
@@ -113,6 +112,7 @@ public class MainActivity extends BaseCompatActivity {
 
 
 
+
     public class DownloadPicture extends AsyncTask<String,Void,String> {
 
         String path=BitmapUtil.getDeafaultFilePath();
@@ -121,7 +121,7 @@ public class MainActivity extends BaseCompatActivity {
         protected String doInBackground(String... strings) {
             ArrayList<String> tempCDList= AllSwapDataList.getCardDiaryPictureList();
             ArrayList<String> tempTDList= AllSwapDataList.getTravelDiaryPictureList();
-            ArrayList<News> tempNewsList=AllSwapDataList.getNewsList();
+            //ArrayList<News> tempNewsList=AllSwapDataList.getNewsList();
 
             for (int i = 0; i < tempCDList.size(); i++) {
                 String name = tempCDList.get(i);
@@ -139,17 +139,17 @@ public class MainActivity extends BaseCompatActivity {
                     checkDownload = DownloadUtils.downloadFile(name);
                 }
             }
-            for (int k = 0; k < tempNewsList.size(); k++) {
-                News tempNews = tempNewsList.get(k);
-                String name=tempNews.getPicName();
-                if(name==null)
-                    continue;
-                String Bmppath = path + name;
-                File f = new File(Bmppath);
-                if (!f.exists()) {
-                    checkDownload = DownloadUtils.downloadFile(name);
-                }
-            }
+//            for (int k = 0; k < tempNewsList.size(); k++) {
+//                News tempNews = tempNewsList.get(k);
+//                String name=tempNews.getPicName();
+//                if(name==null)
+//                    continue;
+//                String Bmppath = path + name;
+//                File f = new File(Bmppath);
+//                if (!f.exists()) {
+//                    checkDownload = DownloadUtils.downloadFile(name);
+//                }
+//            }
             return checkDownload;
         }
 

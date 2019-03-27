@@ -39,7 +39,9 @@ public class Change_headportrait_Activity extends BaseCompatActivity {
     }
 
     public void onClickBack(View view) {
-        onBackPressed();
+        Intent intent = new Intent(getApplicationContext(), PersonInfoActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     public void onClick1(View view) {

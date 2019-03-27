@@ -2,21 +2,30 @@ package com.example.jianpeng.mooddiary;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
-public class NewsFragment extends Fragment {
+public class NewsFragment extends Fragment  {
+
+
 
     public ArrayList<News> newsList=new ArrayList<News>();
+    ListView listView;
+    News_ArrayAdapter newsArrayAdapter;
+
 
     @Nullable
     @Override
@@ -25,19 +34,20 @@ public class NewsFragment extends Fragment {
         return view;
     }
 
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
         newsList=AllSwapDataList.getNewsList();
 
-        News_ArrayAdapter newsArrayAdapter =
+        newsArrayAdapter =
                 new News_ArrayAdapter(
                         getActivity(),
                         R.layout.layout_news_item, // the layout for each item in the list
                         newsList); // the arrayList to feed the arrayAdapter
 
-        ListView listView = getActivity().findViewById(R.id.listView_News);
+        listView = getActivity().findViewById(R.id.listView_News);
         listView.setAdapter(newsArrayAdapter);
 
 
@@ -51,5 +61,19 @@ public class NewsFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
+
+
+
     }
+
+
+
+
+
+
+
+
+
+
 }
