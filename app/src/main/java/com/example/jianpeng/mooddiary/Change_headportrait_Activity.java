@@ -135,7 +135,8 @@ public class Change_headportrait_Activity extends BaseCompatActivity {
                             String result = jsonObject.getString("Result");
                             if (result.equals("success")) {
                                 //做自己的登录成功操作，如页面跳转
-                                Intent intent = new Intent(getApplicationContext(), MoodTagActivity.class);
+                                User.setN_headportrait(nheadportrait);
+                                Intent intent = new Intent(getApplicationContext(), PersonInfoActivity.class);
                                 startActivity(intent);
                                 if(progressDialog.isShowing()) {
                                     progressDialog.dismiss();

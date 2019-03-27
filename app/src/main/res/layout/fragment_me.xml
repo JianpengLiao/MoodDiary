@@ -58,8 +58,8 @@
             app:layout_constraintVertical_bias="0.024"
             android:contentDescription="@string/desc"/>
 
-        <ImageButton
-            android:id="@+id/imageButton"
+        <ImageView
+            android:id="@+id/iv_Head"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_marginStart="24dp"

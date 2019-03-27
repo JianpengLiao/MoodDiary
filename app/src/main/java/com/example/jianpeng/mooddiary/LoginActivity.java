@@ -138,6 +138,19 @@ public class LoginActivity extends CheckPermissionsActivity {
                                 User.setUsername(accountNumber);
                                 setAllSwapDataList(BigJsonObject);
 
+                                JSONObject userJsonObject=(JSONObject) BigJsonObject.get("UserInfo");
+                                User.setN_headportrait(userJsonObject.getInt("Head"));
+                                String email=userJsonObject.getString("Email");
+                                String p=userJsonObject.getString("Phone");
+                                if(email.equals("null"))
+                                    User.setEmail("null");
+                                else
+                                    User.setEmail(email);
+                                if(p.equals("null"))
+                                    User.setPhone("null");
+                                else
+                                    User.setPhone(p);
+
                                 new Thread(new Runnable(){
                                     @Override
                                     public void run() {

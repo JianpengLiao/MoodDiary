@@ -14,10 +14,14 @@ import android.widget.TextView;
 
 public class MeFragment extends Fragment {
 
+    public static MeFragment instance = null;
+    ImageView ivhead;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_me,container,false);
+        instance = this;
         return view;
     }
 
@@ -27,6 +31,9 @@ public class MeFragment extends Fragment {
 
         LinearLayout Lin_Setting = getActivity().findViewById(R.id.Lin_Setting);
         LinearLayout Lin_PersonInfo=getActivity().findViewById(R.id.Lin_PersonInfo);
+        ivhead=getActivity().findViewById(R.id.iv_Head);
+        int headid=User.getHeadPictureID();
+        ivhead.setImageResource(headid);
 
         Lin_Setting.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -41,5 +48,10 @@ public class MeFragment extends Fragment {
                 startActivity(new Intent(getActivity(),PersonInfoActivity.class));
             }
         });
+    }
+
+    public void changeHead(){
+        int headid=User.getHeadPictureID();
+        ivhead.setImageResource(headid);
     }
 }
