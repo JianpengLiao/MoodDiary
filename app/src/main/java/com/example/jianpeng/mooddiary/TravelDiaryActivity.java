@@ -3,6 +3,8 @@ package com.example.jianpeng.mooddiary;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -36,7 +38,7 @@ public class TravelDiaryActivity extends BaseCompatActivity {
 
     private ArrayList<Travel_Diary> traveldiaryList = new ArrayList<Travel_Diary>();
     private ProgressDialog progressDialog;
-
+    Travel_Diary_ArrayAdapter traveldiaryArrayAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +47,7 @@ public class TravelDiaryActivity extends BaseCompatActivity {
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
-        progressDialog.setMessage("Update Mood Tag ...");
+        progressDialog.setMessage("Update Travel Diary ...");
         if (!progressDialog.isShowing())
             progressDialog.show();
 
@@ -55,7 +57,8 @@ public class TravelDiaryActivity extends BaseCompatActivity {
 
 
     public void initListView(){
-        Travel_Diary_ArrayAdapter traveldiaryArrayAdapter =
+        SortTravelDiary();
+        traveldiaryArrayAdapter =
                 new Travel_Diary_ArrayAdapter(
                         getBaseContext(),
                         R.layout.layout_travel_diary_item, // the layout for each item in the list
@@ -133,14 +136,15 @@ public class TravelDiaryActivity extends BaseCompatActivity {
                 String strPictureName=subjsonObjectName.getString("bmpname");
                 Travel_Diary_List.addTravelDiaryPictureName(strPictureName);
             }
+
             new DownloadPicture().execute();
 
         } catch (JSONException e) {
             showToast("Update the Travel Diary failure, please try again later!", Toast.LENGTH_SHORT);
         }
 
-        SortTravelDiary();
-        initListView();
+        //SortTravelDiary();
+        //initListView();
 
     }
 
@@ -188,7 +192,7 @@ public class TravelDiaryActivity extends BaseCompatActivity {
                 if(progressDialog.isShowing()) {
                     progressDialog.dismiss();
                 }
-                showToast("No network connection, please try again later!", Toast.LENGTH_LONG);
+                showToast("Connection failure, please try again later!", Toast.LENGTH_LONG);
                 Log.e("TAG", error.getMessage(), error);
             }
         }) {
@@ -229,6 +233,27 @@ public class TravelDiaryActivity extends BaseCompatActivity {
         toast.show();
     }
 
+    public void onClickcUpDate(View view) {
+        traveldiaryArrayAdapter.notifyDataSetChanged();
+    }
+
+
+
+
+    Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg){
+            Bundle data = msg.getData();
+            //从data中拿出存的数据
+            String val = data.getString("Result");
+            //将数据进行显示到界面等操作
+            if(val.equals("OK")){
+                initListView();
+            }
+        }
+    };
+
+
 
 
     public class DownloadPicture extends AsyncTask<String,Void,String> {
@@ -253,7 +278,11 @@ public class TravelDiaryActivity extends BaseCompatActivity {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-
+            Message msg = Message.obtain();
+            Bundle data = new Bundle();
+            data.putString("Result", "OK");
+            msg.setData(data);
+            handler.sendMessage(msg);
         }
     }
 }

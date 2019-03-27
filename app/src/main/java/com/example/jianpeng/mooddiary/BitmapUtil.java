@@ -115,10 +115,10 @@ public class BitmapUtil {
             file = new File(filePath);
             if (!file.exists()) {
                 boolean b=file.mkdirs();
-                System.out.println(b);
+                System.out.println("Mkdirs Result:"+b);
             }
         } catch (Exception e) {
-            Log.i("error:", e+"");
+            Log.i("makeRootDirectory_error", e.toString());
         }
     }
 

@@ -164,7 +164,7 @@ public class MoodTagActivity extends BaseCompatActivity {
                 if(progressDialog.isShowing()) {
                     progressDialog.dismiss();
                 }
-                showToast("No network connection, please try again later!", Toast.LENGTH_LONG);
+                showToast("Connection failure, please try again later!", Toast.LENGTH_LONG);
                 Log.e("TAG", error.getMessage(), error);
             }
         }) {

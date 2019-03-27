@@ -2,6 +2,7 @@ package com.example.jianpeng.mooddiary;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 
 import java.io.DataOutputStream;
 import java.io.File;
@@ -47,17 +48,19 @@ public class DownloadUtils {
                 Bitmap bitmap = BitmapFactory.decodeStream(is);
                 BitmapUtil.saveImgToDisk(name,bitmap);
 
-                System.out.println(SUCCESS);
+                System.out.println(SUCCESS+"  "+name);
                 return SUCCESS;
 
             }
             else {
-                System.out.println(FAILURE);
+                System.out.println(FAILURE+"  "+name);
             }
         } catch (MalformedURLException e) {
             e.printStackTrace();
+            Log.e("MalformedURLException",e.toString());
         } catch (IOException e) {
             e.printStackTrace();
+            Log.e("IOException",e.toString());
         }
         return FAILURE;
 
