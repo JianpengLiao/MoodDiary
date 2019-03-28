@@ -2,10 +2,11 @@ package com.example.jianpeng.mooddiary;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-
+import android.widget.Toast;
 
 
 public class PersonInfoActivity extends BaseCompatActivity {
@@ -45,5 +46,30 @@ public class PersonInfoActivity extends BaseCompatActivity {
         Intent intent = new Intent(getApplicationContext(), Change_headportrait_Activity.class);
         startActivity(intent);
         finish();
+    }
+
+    public void onClickChangeUserID(View view) {
+        showToast("This feature will be implemented in version 2.0, so stay tuned", Toast.LENGTH_LONG);
+    }
+
+    public void onClickChangePassword(View view) {
+        showToast("This feature will be implemented in version 2.0, so stay tuned", Toast.LENGTH_LONG);
+    }
+
+    public void onClickChangeEmail(View view) {
+        showToast("This feature will be implemented in version 2.0, so stay tuned", Toast.LENGTH_LONG);
+    }
+
+    public void onClickChangePhone(View view) {
+        showToast("This feature will be implemented in version 2.0, so stay tuned", Toast.LENGTH_LONG);
+    }
+
+
+    //show Toast
+    public void showToast(String str, int showTime)
+    {
+        Toast toast = Toast.makeText(getApplicationContext(), str, showTime);
+        toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL , 0, 0);  //set the display location
+        toast.show();
     }
 }

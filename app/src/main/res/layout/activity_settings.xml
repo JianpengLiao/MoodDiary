@@ -40,11 +40,12 @@
 
 
     <LinearLayout
-        android:id="@+id/Lin1"
+        android:id="@+id/Lin_Help"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="75dp"
         android:background="@color/white"
+        android:onClick="onClickHelp"
         android:paddingEnd="10dp"
         android:paddingStart="10dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -74,11 +75,12 @@
 
 
     <LinearLayout
-        android:id="@+id/Lin2"
+        android:id="@+id/Lin_About"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="128dp"
         android:background="@color/white"
+        android:onClick="onClickAbout"
         android:paddingEnd="10dp"
         android:paddingStart="10dp"
         app:layout_constraintStart_toStartOf="parent"

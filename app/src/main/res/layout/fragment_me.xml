@@ -108,7 +108,7 @@
 
 
         <LinearLayout
-            android:id="@+id/Lin2"
+            android:id="@+id/Lin_Collection"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="2dp"
@@ -137,7 +137,7 @@
 
 
         <LinearLayout
-            android:id="@+id/Lin3"
+            android:id="@+id/Lin_Shartofriend"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="2dp"

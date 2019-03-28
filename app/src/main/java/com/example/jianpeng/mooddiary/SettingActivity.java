@@ -6,8 +6,10 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 public class SettingActivity extends BaseCompatActivity {
 
@@ -45,4 +47,22 @@ public class SettingActivity extends BaseCompatActivity {
     public void onClickCancel(View view) {
         onBackPressed();
     }
+
+    public void onClickHelp(View view) {
+        showToast("This feature will be implemented in version 2.0, so stay tuned", Toast.LENGTH_LONG);
+    }
+
+    public void onClickAbout(View view) {
+        showToast("This feature will be implemented in version 2.0, so stay tuned", Toast.LENGTH_LONG);
+    }
+
+
+    //show Toast
+    public void showToast(String str, int showTime)
+    {
+        Toast toast = Toast.makeText(getApplicationContext(), str, showTime);
+        toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL , 0, 0);  //set the display location
+        toast.show();
+    }
 }
+
